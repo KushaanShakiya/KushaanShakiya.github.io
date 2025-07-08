@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Village Kitchen - Item Details</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #d4af37; /* Gold */
+            --secondary-color: #8b4513; /* Saddle Brown */
+            --accent-color: #ff6b35; /* Bright Orange */
+            --text-dark: #2c3e50; /* Dark Blue/Grey */
+            --warm-white: #fefefe; /* Off-white */
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            padding-top: 70px; /* Space for fixed navbar */
+            background-color: #f8f9fa; /* Light background for the page */
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: var(--primary-color) !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: var(--text-dark) !important;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--primary-color) !important;
+        }
+
+        .navbar-nav .nav-link.active {
+            color: var(--secondary-color) !important;
+            font-weight: bold;
+        }
+
+        .item-detail-section {
+            padding: 80px 0;
+        }
+
+        .item-image {
+            width: 100%;
+            height: 450px; /* Increased height for better visual */
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .item-title {
+            color: var(--secondary-color);
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .item-price {
+            color: var(--accent-color);
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+
+        .item-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .options-container, .order-options-container, .payment-options-container {
+            background-color: var(--warm-white);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        .options-container h6, .order-options-container h6, .payment-options-container h6 {
+            color: var(--text-dark);
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        /* Custom Select Dropdown Styling */
+        .custom-select-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .custom-select {
+            width: 100%;
+            padding: 12px 45px 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            background-color: white;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            appearance: none;
+        }
+
+        .custom-select:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.25);
+        }
+
+        .custom-select:hover {
+            border-color: var(--primary-color);
+        }
+
+        .custom-select-container::after {
+            content: "\f282"; /* Bootstrap chevron-down icon */
+            font-family: "bootstrap-icons";
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            color: var(--text-dark);
+            font-size: 1.2rem;
+        }
+
+        .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .info-card {
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+
+        .info-card h5 {
+            color: var(--secondary-color);
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-card ul li {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            color: #444;
+        }
+
+        .info-card ul li::before {
+            content: "\2022"; /* Bullet point */
+            color: var(--accent-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+        .btn-custom {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: var(--text-dark);
+            font-weight: bold;
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px; /* Spacing between buttons */
+            margin-bottom: 10px; /* Spacing for wrapping */
+        }
+
+        .btn-custom:hover {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+        .btn-custom i {
+            margin-right: 8px;
+        }
+
+        .btn-back-menu {
+            background-color: var(--secondary-color); /* Different color for back button */
+            border-color: var(--secondary-color);
+            color: var(--warm-white);
+        }
+        .btn-back-menu:hover {
+            background-color: var(--text-dark);
+            border-color: var(--text-dark);
+            color: white;
+        }
+
+        /* Message box for confirmations */
+        .message-box {
+            background-color: #e6ffe6; /* Light green */
+            border: 1px solid #a3e6a3; /* Green border */
+            color: #28a745; /* Dark green text */
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: 500;
+            display: none; /* Hidden by default */
+        }
+
+        .message-box.error {
+            background-color: #ffe6e6; /* Light red */
+            border-color: #e6a3a3; /* Red border */
+            color: #dc3545; /* Dark red text */
+        }
+
+        .footer {
+            background-color: var(--text-dark);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .social-icons a {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Quantity Controls Styling */
+        .quantity-controls {
+            max-width: 200px;
+        }
+
+        .quantity-controls .btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .quantity-controls .btn:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+
+        .quantity-controls input {
+            height: 40px;
+            border: 2px solid #e9ecef;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .quantity-controls input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.25);
+        }
+
+        /* Cart Styling */
+        .cart-container {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .cart-item {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #e9ecef;
+        }
+
+        .cart-item-name {
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+
+        .cart-item-details {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .cart-item-price {
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .cart-item-remove {
+            color: #dc3545;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .cart-item-remove:hover {
+            color: #c82333;
+        }
+
+        @media (max-width: 768px) {
+            .item-title {
+                font-size: 2.5rem;
+            }
+            .item-price {
+                font-size: 1.5rem;
+            }
+            .item-image {
+                height: 300px;
+            }
+            .btn-custom {
+                width: 100%;
+                margin-right: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-house-heart"></i> Our Village Kitchen
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="menu.html">Menu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="item-detail-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <img id="item-detail-image" src="Image/Fish-scaled.jpg" alt="Menu Item" class="item-image mb-4">
+                </div>
+                <div class="col-lg-6">
+                    <h1 id="item-detail-title" class="item-title">Rice and Curry</h1>
+                    <p id="item-detail-price" class="item-price">Rs. 800</p>
+                    <p id="item-detail-description" class="item-description">Traditional Sri Lankan rice served with a variety of flavorful curries and fresh vegetables. A wholesome and complete meal.</p>
+
+                    <!-- Options for Rice and Curry with Select Dropdown -->
+                    <div id="rice-curry-options" class="options-container">
+                        <h6>Select your Rice Curry option:</h6>
+                        <div class="custom-select-container">
+                            <select id="rice-curry-select" class="custom-select">
+                                <option value="">Choose an option</option>
+                                <option value="chicken">Chicken Rice Curry - Rs. 950</option>
+                                <option value="fish">Fish Rice & Curry - Rs. 1000</option>
+                                <option value="egg">Egg Rice & Curry - Rs. 850</option>
+                                <option value="veg">Vegetable Rice & Curry - Rs. 800</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Quantity Selector -->
+                    <div class="quantity-container options-container">
+                        <h6>Quantity:</h6>
+                        <div class="quantity-controls d-flex align-items-center">
+                            <button id="qty-decrease" class="btn btn-outline-secondary btn-sm">
+                                <i class="bi bi-dash"></i>
+                            </button>
+                            <input type="number" id="quantity-input" class="form-control text-center mx-2" value="1" min="1" max="10" style="width: 80px;">
+                            <button id="qty-increase" class="btn btn-outline-secondary btn-sm">
+                                <i class="bi bi-plus"></i>
+                            </button>
+                        </div>
+                        <div class="mt-2">
+                            <small class="text-muted">Total: <span id="total-price" class="fw-bold text-primary">Rs. 800</span></small>
+                        </div>
+                    </div>
+
+                    <!-- Ingredients and Health Importance -->
+                    <div class="info-card">
+                        <h5>Ingredients</h5>
+                        <ul id="item-ingredients">
+                            <li>Basmati Rice</li>
+                            <li>Dhal (Lentils)</li>
+                            <li>Mixed Seasonal Vegetables</li>
+                            <li>Coconut Milk</li>
+                            <li>Sri Lankan Curry Powder</li>
+                            <li>Curry Leaves</li>
+                            <li>Onions, Garlic, Ginger</li>
+                            <li>Lunumiris (Chilli-Onion Sambol)</li>
+                        </ul>
+                    </div>
+                    <div class="info-card">
+                        <h5>Health Importance</h5>
+                        <p id="item-health-importance">Packed with fiber, vitamins, and minerals from various vegetables and lentils. A great source of plant-based protein and promotes digestive health.</p>
+                    </div>
+
+                    <!-- Order Options -->
+                    <div class="order-options-container">
+                        <h6>How would you like to get this?</h6>
+                        <button id="btn-pickup" class="btn btn-custom">
+                            <a href="Receipt.html">
+       
+            <i class="bi bi-bag-check"></i> Pick Up (Take Away)
+        
+    </a>
+                        </button>
+                        <button id="btn-delivery" class="btn btn-custom">
+                            <i class="bi bi-truck"></i> Delivery
+                        </button>
+                        <button id="btn-add-to-cart" class="btn btn-custom">
+                            <i class="bi bi-cart-plus"></i> Add to Cart
+                        </button>
+                    </div>
+
+                    <!-- Cart Display -->
+                    <div id="cart-display" class="cart-container options-container d-none">
+                        <h6><i class="bi bi-cart3"></i> Your Cart</h6>
+                        <div id="cart-items"></div>
+                        <div class="cart-total mt-3 pt-3 border-top">
+                            <h6>Cart Total: <span id="cart-total-amount" class="text-primary">Rs. 0</span></h6>
+                            <button id="btn-clear-cart" class="btn btn-outline-danger btn-sm me-2">
+                                <i class="bi bi-trash"></i> Clear Cart
+                            </button>
+                            <button id="btn-checkout" class="btn btn-custom">
+                                <i class="bi bi-credit-card"></i> Checkout
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Delivery Payment Options (hidden by default) -->
+                    <div id="delivery-payment-options" class="payment-options-container d-none">
+                        <h6>Select Payment Method for Delivery:</h6>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="deliveryPayment" id="pay-cod" value="cod" checked>
+                            <label class="form-check-label" for="pay-cod">Cash on Delivery</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="deliveryPayment" id="pay-card" value="card">
+                            <label class="form-check-label" for="pay-card">Delivery Card Payment</label>
+                        </div>
+						<button id="btn-checkout" class="btn btn-custom">
+                                <i class="bi bi-credit-card"></i> Checkout
+                            </button>
+						 
+                    </div>	
+
+                    <!-- Message Box for confirmations -->
+                    <div id="message-box" class="message-box"></div>
+
+                    <a href="menu.html" class="btn btn-back-menu mt-4">
+                        <i class="bi bi-arrow-left-circle"></i> Back to Menu
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="bi bi-house-heart"></i> Our Village Kitchen</h5>
+                    <p>Authentic Sri Lankan cuisine made with love and tradition.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div class="social-icons">
+                        <a href="#"><i class="bi bi-facebook"></i></a>
+                        <a href="#"><i class="bi bi-instagram"></i></a>
+                        <a href="#"><i class="bi bi-whatsapp"></i></a>
+                    </div>
+                    <p class="mt-3">&copy; 2025 Our Village Kitchen. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Rice and Curry options data
+            const riceCurryOptions = {
+                "chicken": {
+                    title: "Chicken Rice & Curry",
+                    price: "Rs. 950",
+                    priceValue: 950,
+                    description: "Fluffy rice served with tender chicken curry, dhal, sambol, and two vegetable curries.",
+                    ingredients: ["Basmati Rice", "Chicken", "Coconut Milk", "Sri Lankan Curry Powder", "Turmeric", "Cinnamon", "Cardamom", "Curry Leaves", "Onions", "Garlic", "Ginger", "Green Chillies", "Dhal (Lentils)", "Seasonal Vegetables", "Lunumiris (Chilli-Onion Sambol)"],
+                    health: "A balanced meal providing carbohydrates from rice, protein from chicken and dhal, and essential vitamins and fiber from vegetables. Spices offer anti-inflammatory benefits.",
+                    image: "https://placehold.co/600x450/ff6b35/ffffff?text=Chicken+Rice+%26+Curry"
+                },
+                "fish": {
+                    title: "Fish Rice & Curry",
+                    price: "Rs. 1000",
+                    priceValue: 1000,
+                    description: "Traditional rice and curry with a flavorful fish curry, dhal, sambol, and two vegetable curries.",
+                    ingredients: ["Basmati Rice", "Fresh Fish (Tuna/Mackerel)", "Coconut Milk", "Sri Lankan Curry Powder", "Goraka (Garcinia Cambogia)", "Curry Leaves", "Onions", "Garlic", "Ginger", "Green Chillies", "Dhal (Lentils)", "Seasonal Vegetables", "Lunumiris (Chilli-Onion Sambol)"],
+                    health: "Rich in Omega-3 fatty acids from fish, which are beneficial for heart and brain health. Provides complete protein and dietary fiber.",
+                    image: "https://placehold.co/600x450/d4af37/ffffff?text=Fish+Rice+%26+Curry"
+                },
+                "egg": {
+                    title: "Egg Rice & Curry",
+                    price: "Rs. 850",
+                    priceValue: 850,
+                    description: "Wholesome rice and curry featuring a delicious egg curry, dhal, sambol, and two vegetable curries.",
+                    ingredients: ["Basmati Rice", "Boiled Eggs", "Coconut Milk", "Sri Lankan Curry Powder", "Curry Leaves", "Onions", "Garlic", "Ginger", "Green Chillies", "Dhal (Lentils)", "Seasonal Vegetables", "Lunumiris (Chilli-Onion Sambol)"],
+                    health: "Eggs are an excellent source of protein and essential vitamins. Combined with vegetables and dhal, it offers a nutritious and filling meal.",
+                    image: "https://placehold.co/600x450/8b4513/ffffff?text=Egg+Rice+%26+Curry"
+                },
+                "veg": {
+                    title: "Vegetable Rice & Curry",
+                    price: "Rs. 800",
+                    priceValue: 800,
+                    description: "A wholesome vegetarian option with a variety of seasonal vegetable curries, dhal, and sambol.",
+                    ingredients: ["Basmati Rice", "Dhal (Lentils)", "Mixed Seasonal Vegetables (Pumpkin, Beans, Carrot, Potato, Beetroot)", "Coconut Milk", "Sri Lankan Curry Powder", "Curry Leaves", "Onions", "Garlic", "Ginger", "Green Chillies", "Lunumiris (Chilli-Onion Sambol)"],
+                    health: "Packed with fiber, vitamins, and minerals from various vegetables and lentils. A great source of plant-based protein and promotes digestive health.",
+                    image: "https://placehold.co/600x450/2c3e50/ffffff?text=Vegetable+Rice+%26+Curry"
+                }
+            };
+
+            // Elements
+            const selectElement = document.getElementById('rice-curry-select');
+            const titleElement = document.getElementById('item-detail-title');
+            const priceElement = document.getElementById('item-detail-price');
+            const descriptionElement = document.getElementById('item-detail-description');
+            const ingredientsElement = document.getElementById('item-ingredients');
+            const healthElement = document.getElementById('item-health-importance');
+            const imageElement = document.getElementById('item-detail-image');
+            const messageBox = document.getElementById('message-box');
+            const quantityInput = document.getElementById('quantity-input');
+            const totalPriceElement = document.getElementById('total-price');
+            const cartDisplay = document.getElementById('cart-display');
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartTotalElement = document.getElementById('cart-total-amount');
+
+            // Cart state
+            let cart = [];
+            let currentPrice = 800;
+
+            // Default base data
+            const baseData = {
+                title: "Rice and Curry",
+                price: "Rs. 800",
+                priceValue: 800,
+                description: "Traditional Sri Lankan rice served with a variety of flavorful curries and fresh vegetables. A wholesome and complete meal.",
+                ingredients: ["Basmati Rice", "Dhal (Lentils)", "Mixed Seasonal Vegetables", "Coconut Milk", "Sri Lankan Curry Powder", "Curry Leaves", "Onions, Garlic, Ginger", "Lunumiris (Chilli-Onion Sambol)"],
+                health: "Packed with fiber, vitamins, and minerals from various vegetables and lentils. A great source of plant-based protein and promotes digestive health.",
+                image: "https://placehold.co/600x450/cccccc/333333?text=Rice+%26+Curry"
+            };
+
+            // Function to update total price
+            function updateTotalPrice() {
+                const quantity = parseInt(quantityInput.value);
+                const total = currentPrice * quantity;
+                totalPriceElement.textContent = `Rs. ${total.toLocaleString()}`;
+            }
+
+            // Function to update cart display
+            function updateCartDisplay() {
+                if (cart.length === 0) {
+                    cartDisplay.classList.add('d-none');
+                    return;
+                }
+
+                cartDisplay.classList.remove('d-none');
+                cartItemsContainer.innerHTML = '';
+
+                let cartTotal = 0;
+                cart.forEach((item, index) => {
+                    const itemTotal = item.price * item.quantity;
+                    cartTotal += itemTotal;
+
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item d-flex justify-content-between align-items-center';
+                    cartItem.innerHTML = `
+                        <div class="flex-grow-1">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-details">Qty: ${item.quantity} × Rs. ${item.price}</div>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="cart-item-price me-3">Rs. ${itemTotal.toLocaleString()}</div>
+                            <i class="bi bi-trash cart-item-remove" onclick="removeFromCart(${index})"></i>
+                        </div>
+                    `;
+                    cartItemsContainer.appendChild(cartItem);
+                });
+
+                cartTotalElement.textContent = `Rs. ${cartTotal.toLocaleString()}`;
+            }
+
+            // Function to add item to cart
+            function addToCart() {
+                const selectedOption = selectElement.value;
+                const quantity = parseInt(quantityInput.value);
+                
+                let itemData = baseData;
+                if (selectedOption && riceCurryOptions[selectedOption]) {
+                    itemData = riceCurryOptions[selectedOption];
+                }
+
+                const cartItem = {
+                    name: itemData.title,
+                    price: itemData.priceValue,
+                    quantity: quantity,
+                    option: selectedOption || 'base'
+                };
+
+                // Check if item already exists in cart
+                const existingItemIndex = cart.findIndex(item => 
+                    item.name === cartItem.name && item.option === cartItem.option
+                );
+
+                if (existingItemIndex > -1) {
+                    // Update quantity if item exists
+                    cart[existingItemIndex].quantity += quantity;
+                } else {
+                    // Add new item to cart
+                    cart.push(cartItem);
+                }
+
+                updateCartDisplay();
+                showMessage(`${cartItem.name} (${quantity}) added to cart!`, 'success');
+            }
+
+            // Function to remove item from cart
+            window.removeFromCart = function(index) {
+                cart.splice(index, 1);
+                updateCartDisplay();
+                showMessage('Item removed from cart', 'success');
+            };
+
+            // Function to clear cart
+            function clearCart() {
+                cart = [];
+                updateCartDisplay();
+                showMessage('Cart cleared', 'success');
+            }
+
+            // Function to update item details
+            function updateItemDetails(optionKey) {
+                let data = baseData;
+                
+                if (optionKey && riceCurryOptions[optionKey]) {
+                    data = riceCurryOptions[optionKey];
+                }
+
+                currentPrice = data.priceValue;
+
+                // Update elements
+                titleElement.textContent = data.title;
+                priceElement.textContent = data.price;
+                descriptionElement.textContent = data.description;
+                healthElement.textContent = data.health;
+                imageElement.src = data.image;
+                imageElement.alt = data.title;
+
+                // Update ingredients list
+                ingredientsElement.innerHTML = '';
+                data.ingredients.forEach(ingredient => {
+                    const li = document.createElement('li');
+                    li.textContent = ingredient;
+                    ingredientsElement.appendChild(li);
+                });
+
+                // Update total price
+                updateTotalPrice();
+
+                // Show confirmation message
+                showMessage(`Updated to ${data.title}`, 'success');
+            }
+
+            // Function to show message
+            function showMessage(message, type = 'success') {
+                messageBox.textContent = message;
+                messageBox.className = `message-box ${type === 'error' ? 'error' : ''}`;
+                messageBox.style.display = 'block';
+                
+                // Hide message after 3 seconds
+                setTimeout(() => {
+                    messageBox.style.display = 'none';
+                }, 3000);
+            }
+
+            // Event listener for select dropdown
+            selectElement.addEventListener('change', function() {
+                const selectedOption = this.value;
+                
+                if (selectedOption === '') {
+                    // Reset to base data if no option selected
+                    updateItemDetails(null);
+                } else {
+                    // Update with selected option
+                    updateItemDetails(selectedOption);
+                }
+            });
+
+            // Quantity control event listeners
+            document.getElementById('qty-decrease').addEventListener('click', function() {
+                const currentQty = parseInt(quantityInput.value);
+                if (currentQty > 1) {
+                    quantityInput.value = currentQty - 1;
+                    updateTotalPrice();
+                }
+            });
+
+            document.getElementById('qty-increase').addEventListener('click', function() {
+                const currentQty = parseInt(quantityInput.value);
+                if (currentQty < 10) {
+                    quantityInput.value = currentQty + 1;
+                    updateTotalPrice();
+                }
+            });
+
+            quantityInput.addEventListener('input', function() {
+                const value = parseInt(this.value);
+                if (value >= 1 && value <= 10) {
+                    updateTotalPrice();
+                } else if (value < 1) {
+                    this.value = 1;
+                    updateTotalPrice();
+                } else if (value > 10) {
+                    this.value = 10;
+                    updateTotalPrice();
+                }
+            });
+
+            // Event listeners for order buttons
+            document.getElementById('btn-pickup').addEventListener('click', function() {
+                const selectedOption = selectElement.value;
+                const itemName = selectedOption ? riceCurryOptions[selectedOption].title : baseData.title;
+                const quantity = parseInt(quantityInput.value);
+                showMessage(`${itemName} (${quantity}) added for pickup!`, 'success');
+            });
+
+            document.getElementById('btn-reserve-table').addEventListener('click', function() {
+                const selectedOption = selectElement.value;
+                const itemName = selectedOption ? riceCurryOptions[selectedOption].title : baseData.title;
+                const quantity = parseInt(quantityInput.value);
+                showMessage(`Table reserved for ${itemName} (${quantity})!`, 'success');
+            });
+
+            document.getElementById('btn-delivery').addEventListener('click', function() {
+                const selectedOption = selectElement.value;
+                const itemName = selectedOption ? riceCurryOptions[selectedOption].title : baseData.title;
+                const quantity = parseInt(quantityInput.value);
+                document.getElementById('delivery-payment-options').classList.remove('d-none');
+                showMessage(`${itemName} (${quantity}) selected for delivery. Please choose payment method.`, 'success');
+            });
+
+            document.getElementById('btn-add-to-cart').addEventListener('click', addToCart);
+
+            // Cart management buttons
+            document.getElementById('btn-clear-cart').addEventListener('click', clearCart);
+            
+            document.getElementById('btn-checkout').addEventListener('click', function() {
+                if (cart.length === 0) {
+                    showMessage('Your cart is empty!', 'error');
+                    return;
+                }
+                showMessage('Redirecting to checkout...', 'success');
+                // Here you would typically redirect to checkout page
+            });
+
+            // Initialize with base data
+            updateItemDetails(null);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Our Village Kitchen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #2c1810;
+            background: linear-gradient(135deg, #faf8f5 0%, #f5f0e8 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        nav {
+            background: #f8f6f0;
+            padding: 15px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #d4af37;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo::before {
+            content: "🏠";
+            font-size: 1.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .nav-menu a {
+            color: #8b4513;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 8px 0;
+        }
+
+        .nav-menu a:hover {
+            color: #d4af37;
+            transform: translateY(-1px);
+        }
+
+        .nav-menu a.active {
+            color: #d4af37;
+            font-weight: bold;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #8b4513;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: #f8f6f0;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                padding-top: 50px;
+                transition: left 0.3s ease;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-menu a {
+                font-size: 1.2rem;
+                padding: 15px 30px;
+                width: 200px;
+                text-align: center;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+        }
+
+        header {
+            margin-top: 70px;
+            background: linear-gradient(135deg, #8b4513 0%, #a0522d 50%, #cd853f 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="60" cy="80" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .tagline {
+            font-size: 1.3rem;
+            font-style: italic;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .main-content {
+            padding: 80px 0;
+        }
+
+        .intro-section {
+            text-align: center;
+            margin-bottom: 80px;
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .intro-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(205,133,63,0.05) 0%, transparent 70%);
+            animation: pulse 6s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.05; }
+            50% { transform: scale(1.1); opacity: 0.1; }
+        }
+
+        .intro-section h2 {
+            font-size: 2.5rem;
+            color: #8b4513;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .intro-text {
+            font-size: 1.2rem;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+            position: relative;
+            z-index: 1;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #ffd700 0%, #ffed4a 100%);
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-weight: bold;
+            color: #8b4513;
+            box-shadow: 0 2px 8px rgba(255,215,0,0.3);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 80px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #8b4513, #cd853f, #ffd700);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border-color: #cd853f;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            color: #8b4513;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .feature-description {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .special-section {
+            background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            margin-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .special-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50 10 L60 40 L90 40 L70 60 L80 90 L50 75 L20 90 L30 60 L10 40 L40 40 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: 100px 100px;
+            animation: sparkle 15s infinite linear;
+        }
+
+        @keyframes sparkle {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(50px, 50px) rotate(360deg); }
+        }
+
+        .special-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .special-text {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 80px 0;
+            background: white;
+            margin-top: 80px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            color: #8b4513;
+            margin-bottom: 20px;
+        }
+
+        .cta-text {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #8b4513 0%, #cd853f 100%);
+            color: white;
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(139,69,19,0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(139,69,19,0.4);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .intro-section {
+                padding: 30px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .feature-card {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">Our Village Kitchen</a>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="menu.html">Menu</a>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li> -->
+            </ul>
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+        </div>
+    </nav>
+
+    <header>
+        <div class="container">
+            <h1>Our Village Kitchen</h1>
+            <p class="tagline">Where tradition meets taste</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <main class="main-content">
+            <section class="intro-section">
+                <h2>Welcome to Our Village Kitchen</h2>
+                <div class="intro-text">
+                    For over <span class="highlight">10 years</span>, Our Village Kitchen has been serving <span class="highlight">authentic Sri Lankan cuisine</span> rooted in the rich culture, flavors, and warmth of our island. Nestled in a place that feels like home, we offer every guest a true taste of Sri Lanka — just the way it's meant to be.
+                    <br><br>
+                    At our restaurant, we believe in keeping things <span class="highlight">pure and natural</span>. That's why we <span class="highlight">never use MSG or artificial flavoring</span> in our food. Every dish is carefully prepared using <span class="highlight">fresh local ingredients</span>, traditional recipes, and time-honored cooking methods that reflect the heart of Sri Lankan village life.
+                    <br><br>
+                    Whether you're a <span class="highlight">foreign traveler discovering the island's culinary gems</span>, or a <span class="highlight">local explorer craving comfort food</span>, we offer an experience that combines <span class="highlight">flavor, health, and culture</span> in every bite.
+                </div>
+            </section>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">✅</span>
+                    <h3 class="feature-title">No MSG & No Artificial Flavoring</h3>
+                    <p class="feature-description">We're committed to keeping our food pure and natural, using only authentic spices and traditional cooking methods that have been passed down through generations.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🍛</span>
+                    <h3 class="feature-title">Authentic Sri Lankan Taste</h3>
+                    <p class="feature-description">Experience the true flavors of Sri Lanka with recipes that capture the essence of our island's rich culinary heritage and vibrant spice culture.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🥥</span>
+                    <h3 class="feature-title">Traditional Cultural Recipes</h3>
+                    <p class="feature-description">Each dish tells a story of our village traditions, prepared with the same care and attention that Sri Lankan families have used for centuries.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">💰</span>
+                    <h3 class="feature-title">Affordable Prices for Everyone</h3>
+                    <p class="feature-description">Enjoy luxurious, high-quality meals without breaking the bank. We believe great food should be accessible to all who seek authentic flavors.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🥗</span>
+                    <h3 class="feature-title">Healthy, Clean, and Freshly Made</h3>
+                    <p class="feature-description">Every meal is prepared fresh daily using the finest local ingredients, ensuring both exceptional taste and nutritional value.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">✨</span>
+                    <h3 class="feature-title">Luxury Feel Without High Cost</h3>
+                    <p class="feature-description">Experience the warmth and elegance of fine dining in a comfortable, welcoming atmosphere that reflects the beauty of Sri Lankan hospitality.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <section class="special-section">
+        <div class="container">
+            <h2>What Makes Us Special</h2>
+            <p class="special-text">
+                We're proud to provide <strong>luxurious, clean, and healthy meals</strong> that not only taste amazing but are also good for your body — all at a price that feels right. Our commitment to authenticity means every spice is carefully selected, every recipe is time-tested, and every meal is prepared with the love and care that defines Sri Lankan village cooking.
+            </p>
+        </div>
+    </section>
+
+    <div class="container">
+        <section class="cta-section">
+            <h2>Experience the Soul of Sri Lanka</h2>
+            <p class="cta-text">Come experience the soul of Sri Lanka, one dish at a time.</p>
+            <p class="cta-text"><strong>Welcome to Our Village Kitchen — Where Every Meal Feels Like Home.</strong></p>
+            <a href="#" class="cta-button">Visit Us Today</a>
+        </section>
+    </div>
+
+    <script>
+        function toggleMobileMenu() {
+            const navMenu = document.querySelector('.nav-menu');
+            navMenu.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('.nav-menu').classList.remove('active');
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('nav')) {
+                document.querySelector('.nav-menu').classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

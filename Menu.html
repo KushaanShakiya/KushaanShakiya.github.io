@@ -1,0 +1,1704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Village Kitchen - Full Menu</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #d4af37; /* Gold */
+            --secondary-color: #8b4513; /* Saddle Brown */
+            --accent-color: #ff6b35; /* Bright Orange */
+            --text-dark: #2c3e50; /* Dark Blue/Grey */
+            --warm-white: #fefefe; /* Off-white */
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            padding-top: 70px; /* Space for fixed navbar */
+            background-color: #f8f9fa; /* Light background for the page */
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: var(--primary-color) !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: var(--text-dark) !important;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--primary-color) !important;
+        }
+
+        .navbar-nav .nav-link.active {
+            color: var(--secondary-color) !important;
+            font-weight: bold;
+        }
+
+        /* Enhanced Cart Button in Navbar */
+        .cart-nav-btn {
+            position: relative;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white !important;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .cart-nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
+            color: white !important;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #dc3545;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* Cart Dropdown */
+        .cart-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            width: 350px;
+            max-height: 400px;
+            overflow-y: auto;
+            z-index: 1000;
+            padding: 20px;
+            margin-top: 10px;
+        }
+
+        .cart-dropdown::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            right: 20px;
+            width: 16px;
+            height: 16px;
+            background: white;
+            border-left: 1px solid #e9ecef;
+            border-top: 1px solid #e9ecef;
+            transform: rotate(45deg);
+        }
+
+        .cart-dropdown-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .cart-dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-dropdown-item img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 12px;
+        }
+
+        .cart-dropdown-details {
+            flex: 1;
+        }
+
+        .cart-dropdown-name {
+            font-weight: 600;
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+            margin-bottom: 2px;
+        }
+
+        .cart-dropdown-price {
+            color: var(--accent-color);
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .cart-dropdown-remove {
+            color: #dc3545;
+            cursor: pointer;
+            font-size: 1.1rem;
+            padding: 4px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .cart-dropdown-remove:hover {
+            background-color: #f8f9fa;
+        }
+
+        .cart-dropdown-empty {
+            text-align: center;
+            padding: 30px 20px;
+            color: #6c757d;
+        }
+
+        .cart-dropdown-empty i {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            opacity: 0.5;
+        }
+
+        .cart-dropdown-total {
+            border-top: 2px solid var(--primary-color);
+            padding-top: 15px;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .cart-dropdown-total h6 {
+            color: var(--secondary-color);
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .cart-dropdown-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .cart-dropdown-buttons .btn {
+            flex: 1;
+            font-size: 0.85rem;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+        /* End Cart CSS */
+
+        .section-title {
+            color: var(--secondary-color);
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-color);
+            margin: 15px auto;
+        }
+
+        .menu-page-header {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://placehold.co/1920x400/8b4513/ffffff?text=Our+Full+Menu');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .menu-page-header h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+
+        .menu-page-header p {
+            font-size: 1.2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+        }
+
+        .menu-category-title {
+            color: var(--secondary-color);
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin-top: 60px;
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .menu-category-title::after {
+            content: '';
+            display: block;
+            width: 70px;
+            height: 3px;
+            background-color: var(--primary-color);
+            margin: 15px auto;
+        }
+
+        .menu-item-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 30px;
+            height: 100%; /* Ensure cards in a row have equal height */
+
+            display: flex;
+            flex-direction: column;
+            text-decoration: none; /* Remove underline from the card link */
+            color: inherit; /* Inherit text color */
+        }
+
+        .menu-item-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            color: inherit; /* Ensure text color doesn't change on hover */
+        }
+
+        .menu-item-card img {
+            width: 100%;
+            height: 200px; /* Fixed height for menu item images */
+            object-fit: cover;
+        }
+
+        .menu-item-content {
+            padding: 25px;
+            flex-grow: 1; /* Allows content to expand and push price to bottom */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .menu-item-content h5 {
+            color: var(--secondary-color);
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .menu-item-content p {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 15px;
+            flex-grow: 1; /* Allows description to take available space */
+        }
+
+        .price {
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-align: right;
+            margin-top: auto; /* Pushes price to the bottom */
+            margin-bottom: 15px; /* Space before button */
+        }
+
+        /* New Add to Cart Button for Menu Items */
+        .btn-add-to-cart-item {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: var(--text-dark);
+            font-weight: bold;
+            padding: 10px 20px;
+            font-size: 0.95rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%; /* Make button full width */
+        }
+
+        .btn-add-to-cart-item:hover {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-add-to-cart-item i {
+            margin-right: 8px;
+        }
+
+        .footer {
+            background-color: var(--text-dark);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .social-icons a {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: var(--accent-color);
+        }
+
+        .message-box { /* Added message box styling */
+            background-color: #e6ffe6; /* Light green */
+            border: 1px solid #a3e6a3; /* Green border */
+            color: #28a745; /* Dark green text */
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: 500;
+            display: none; /* Hidden by default */
+            position: fixed; /* Fixed position */
+            top: 80px; /* Below navbar */
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1050; /* Above most content */
+            width: 80%;
+            max-width: 500px;
+        }
+
+        .message-box.error {
+            background-color: #ffe6e6; /* Light red */
+            border-color: #e6a3a3; /* Red border */
+            color: #dc3545; /* Dark red text */
+        }
+
+        @media (max-width: 768px) {
+            .menu-page-header h1 {
+                font-size: 2.5rem;
+            }
+            .menu-category-title {
+                font-size: 1.8rem;
+            }
+            body {
+                padding-top: 56px; /* Adjust for smaller navbar on mobile */
+            }
+            .cart-dropdown {
+                width: 300px;
+                right: -50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-house-heart"></i> Our Village Kitchen
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="menu.html">Menu</a>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li> -->
+                    <!-- Cart Option Button -->
+                    <li class="nav-item position-relative">
+                        <button class="cart-nav-btn" id="cart-nav-btn">
+                            <i class="bi bi-cart3"></i>
+                            <span>Cart</span>
+                            <span class="cart-badge" id="cart-badge">0</span>
+                        </button>
+                        <div class="cart-dropdown d-none" id="cart-dropdown">
+                            <div id="cart-dropdown-content">
+                                <div class="cart-dropdown-empty">
+                                    <i class="bi bi-cart-x"></i>
+                                    <p>Your cart is empty</p>
+                                </div>
+                            </div>
+                            <div class="cart-dropdown-total d-none" id="cart-dropdown-total-section">
+                                <h6>Total: <span id="cart-dropdown-total-amount">Rs. 0</span></h6>
+                                <div class="cart-dropdown-buttons">
+                                    <button class="btn btn-outline-secondary" id="cart-dropdown-clear">Clear</button>
+                                    <button class="btn btn-custom" id="cart-dropdown-checkout">Checkout</button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Menu Page Header -->
+    <section class="menu-page-header">
+        <div class="container">
+            <h1>Our Complete Culinary Journey</h1>
+            <p class="lead">Explore the full range of authentic Sri Lankan flavors handcrafted for you.</p>
+        </div>
+    </section>
+
+    <!-- Message Box for confirmations -->
+    <div id="message-box" class="message-box"></div>
+
+    <!-- Full Menu Section -->
+    <section id="full-menu" class="py-5">
+        <div class="container">
+            <!-- Main Dishes -->
+            <h2 class="menu-category-title">🥘 Main Dishes</h2>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="rice-and-curry" data-item-price="850" data-item-image="https://placehold.co/400x200/ff6b35/ffffff?text=Rice+and+Curry" data-item-title="Rice and Curry">
+                        <a href="Checkout.html">
+                            <img src="Image/Rice and Curry.jpg" alt="Rice and Curry" onerror="this.onerror=null;this.src='https://placehold.co/400x200/ff6b35/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Rice and Curry (Chicken / Fish / Egg / Veg)</h5>
+                            <p>Traditional Sri Lankan rice served with a variety of flavorful curries, fresh vegetables, and accompaniments.</p>
+                            <div class="price">Rs. 850 - 1000</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="yellow-rice" data-item-price="980" data-item-image="https://placehold.co/400x200/d4af37/ffffff?text=Yellow+Rice" data-item-title="Yellow Rice with Chicken Curry">
+                        <a href="item-details.html?item=yellow-rice">
+                            <img src="Image/Yellow Rice.jpg" alt="Yellow Rice with Chicken Curry" onerror="this.onerror=null;this.src='https://placehold.co/400x200/d4af37/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Yellow Rice with Chicken Curry</h5>
+                            <p>Fragrant yellow rice cooked with turmeric and spices, served with tender chicken curry.</p>
+                            <div class="price">Rs. 980</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="fried-rice" data-item-price="750" data-item-image="https://placehold.co/400x200/8b4513/ffffff?text=Fried+Rice" data-item-title="Fried Rice">
+                        <a href="item-details.html?item=fried-rice">
+                            <img src="Image/1-46.jpg" alt="Fried Rice" onerror="this.onerror=null;this.src='https://placehold.co/400x200/8b4513/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Fried Rice (Chicken / Egg / Seafood / Veg)</h5>
+                            <p>Wok-tossed basmati rice with your choice of protein and fresh garden vegetables.</p>
+                            <div class="price">Rs. 750 - 1050</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="nasi-goreng" data-item-price="1100" data-item-image="https://placehold.co/400x200/2c3e50/ffffff?text=Nasi+Goreng" data-item-title="Nasi Goreng">
+                        <a href="item-details.html?item=nasi-goreng">
+                            <img src="Image/035.jpg" alt="Nasi Goreng" onerror="this.onerror=null;this.src='https://placehold.co/400x200/2c3e50/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Nasi Goreng</h5>
+                            <p>Indonesian-style fried rice with a Sri Lankan twist, complete with chicken, egg, and prawns.</p>
+                            <div class="price">Rs. 1100</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="kottu-roti" data-item-price="700" data-item-image="https://placehold.co/400x200/ff6b35/ffffff?text=Kottu+Roti" data-item-title="Kottu Roti">
+                        <a href="item-details.html?item=kottu-roti">
+                            <img src="Image/shutterstock_438528403.jpg" alt="Kottu Roti" onerror="this.onerror=null;this.src='https://placehold.co/400x200/ff6b35/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Kottu Roti (Chicken / Cheese / Egg / Veg / Seafood)</h5>
+                            <p>The famous Sri Lankan street food: chopped roti stir-fried with your preferred fillings and spices.</p>
+                            <div class="price">Rs. 700 - 1200</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="string-hoppers" data-item-price="650" data-item-image="https://placehold.co/400x200/d4af37/ffffff?text=String+Hoppers" data-item-title="String Hoppers">
+                        <a href="item-details.html?item=string-hoppers">
+                            <img src="Image/shutterstock_437056246.jpg" alt="String Hoppers" onerror="this.onerror=null;this.src='https://placehold.co/400x200/d4af37/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>String Hoppers with Kiri Hodi & Lunumiris</h5>
+                            <p>Delicate steamed rice flour noodles, served with creamy coconut milk gravy and spicy onion sambol.</p>
+                            <div class="price">Rs. 650</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="pittu" data-item-price="550" data-item-image="https://placehold.co/400x200/8b4513/ffffff?text=Pittu" data-item-title="Pittu">
+                        <a href="item-details.html?item=pittu">
+                            <img src="Image/shutterstock_591041153.jpg" alt="Pittu" onerror="this.onerror=null;this.src='https://placehold.co/400x200/8b4513/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Pittu with Coconut Sambol Curry</h5>
+                            <p>Steamed cylinders of ground rice and coconut, a unique and satisfying meal.</p>
+                            <div class="price">Rs. 550</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="milk-rice" data-item-price="450" data-item-image="https://placehold.co/400x200/2c3e50/ffffff?text=Milk+Rice" data-item-title="Milk Rice (Kiribath)">
+                        <a href="item-details.html?item=milk-rice">
+                            <img src="Image/shutterstock_514422676.jpg" alt="Milk Rice" onerror="this.onerror=null;this.src='https://placehold.co/400x200/2c3e50/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Milk Rice (Kiribath) with Lunu Miris</h5>
+                            <p>Creamy coconut milk rice, traditionally served with a spicy onion relish.</p>
+                            <div class="price">Rs. 450</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="pol-roti" data-item-price="400" data-item-image="https://placehold.co/400x200/ff6b35/ffffff?text=Pol+Roti" data-item-title="Pol Roti">
+                        <a href="item-details.html?item=pol-roti">
+                            <img src="Image/shutterstock_616802342.jpg" alt="Pol Roti" onerror="this.onerror=null;this.src='https://placehold.co/400x200/ff6b35/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Pol Roti with Seeni Sambol</h5>
+                            <p>Flatbreads made with grated coconut, served with a sweet and spicy caramelized onion sambol.</p>
+                            <div class="price">Rs. 400</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="hoppers" data-item-price="300" data-item-image="https://placehold.co/400x200/d4af37/ffffff?text=Hoppers" data-item-title="Hoppers">
+                        <a href="item-details.html?item=hoppers">
+                            <img src="Image/shutterstock_1022591887.jpg" alt="Hoppers" onerror="this.onerror=null;this.src='https://placehold.co/400x200/d4af37/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Hoppers (Plain / Egg)</h5>
+                            <p>Crispy, bowl-shaped pancakes, a staple Sri Lankan breakfast or dinner item.</p>
+                            <div class="price">Rs. 300 - 450</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="devilled-chicken" data-item-price="1050" data-item-image="https://placehold.co/400x200/8b4513/ffffff?text=Devilled+Chicken" data-item-title="Devilled Chicken with Rice">
+                        <a href="item-details.html?item=devilled-chicken">
+                            <img src="Image/devilled-chicken-sri-lanka.jpg" alt="Devilled Chicken with Rice" onerror="this.onerror=null;this.src='https://placehold.co/400x200/8b4513/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Devilled Chicken with Rice</h5>
+                            <p>Spicy and tangy stir-fried chicken, a popular dish, served with steamed rice.</p>
+                            <div class="price">Rs. 1050</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="devilled-fish" data-item-price="1150" data-item-image="https://placehold.co/400x200/2c3e50/ffffff?text=Devilled+Fish" data-item-title="Devilled Fish with Fried Rice">
+                        <a href="item-details.html?item=devilled-fish">
+                            <img src="Image/23-deviled-fish.webp" alt="Devilled Fish with Fried Rice" onerror="this.onerror=null;this.src='https://placehold.co/400x200/2c3e50/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Devilled Fish with Fried Rice</h5>
+                            <p>Spicy fish preparation, stir-fried with capsicum and onions, served with fragrant fried rice.</p>
+                            <div class="price">Rs. 1150</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="chinese-chicken" data-item-price="1100" data-item-image="https://placehold.co/400x200/ff6b35/ffffff?text=Chinese+Chicken" data-item-title="Chinese Style Chicken with Fried Rice">
+                        <a href="item-details.html?item=chinese-chicken">
+                            <img src="Image/main-header.avif" alt="Chinese Style Chicken with Fried Rice" onerror="this.onerror=null;this.src='https://placehold.co/400x200/ff6b35/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Chinese Style Chicken with Fried Rice</h5>
+                            <p>A fusion dish featuring succulent chicken in a savory Chinese-inspired sauce, with fried rice.</p>
+                            <div class="price">Rs. 1100</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Curries & Side Dishes -->
+            <h2 class="menu-category-title">🍛 Curries & Side Dishes</h2>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="chicken-curry" data-item-price="500" data-item-image="https://placehold.co/400x200/d4af37/ffffff?text=Chicken+Curry" data-item-title="Chicken Curry">
+                        <a href="item-details.html?item=chicken-curry">
+                            <img src="Image/Sri-Lankan-Chicken-Curry.jpg" alt="Chicken Curry" onerror="this.onerror=null;this.src='https://placehold.co/400x200/d4af37/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Chicken Curry (Sri Lankan Style)</h5>
+                            <p>Rich and aromatic chicken curry cooked in coconut milk with traditional spices.</p>
+                            <div class="price">Rs. 500</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="fish-ambul-thiyal" data-item-price="550" data-item-image="https://placehold.co/400x200/8b4513/ffffff?text=Fish+Ambul+Thiyal" data-item-title="Fish Ambul Thiyal">
+                        <a href="item-details.html?item=fish-ambul-thiyal">
+                            <img src="Image/dsc01401.webp" alt="Fish Ambul Thiyal" onerror="this.onerror=null;this.src='https://placehold.co/400x200/8b4513/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Fish Ambul Thiyal</h5>
+                            <p>A sour fish curry, a unique Sri Lankan delicacy, slow-cooked with goraka and spices.</p>
+                            <div class="price">Rs. 550</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="dhal-curry" data-item-price="300" data-item-image="https://placehold.co/400x200/2c3e50/ffffff?text=Dhal+Curry" data-item-title="Dhal Curry">
+                        <a href="item-details.html?item=dhal-curry">
+                            <img src="Image/shutterstock_616802342.jpg" alt="Dhal Curry" onerror="this.onerror=null;this.src='https://placehold.co/400x200/2c3e50/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Dhal Curry (Parippu)</h5>
+                            <p>Creamy red lentil curry, a staple in Sri Lankan cuisine, cooked with coconut milk.</p>
+                            <div class="price">Rs. 300</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="jackfruit-curry" data-item-price="400" data-item-image="https://placehold.co/400x200/ff6b35/ffffff?text=Jackfruit+Curry" data-item-title="Jackfruit Curry">
+                        <a href="item-details.html?item=jackfruit-curry">
+                            <img src="Image/website-1-1-700x525.jpg" alt="Jackfruit Curry" onerror="this.onerror=null;this.src='https://placehold.co/400x200/ff6b35/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Jackfruit Curry (Polos)</h5>
+                            <p>Tender young jackfruit cooked in a rich, spicy coconut gravy.</p>
+                            <div class="price">Rs. 400</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="brinjal-moju" data-item-price="350" data-item-image="https://placehold.co/400x200/d4af37/ffffff?text=Brinjal+Moju" data-item-title="Brinjal Moju">
+                        <a href="item-details.html?item=brinjal-moju">
+                            <img src="Image/BRINJAL-MOJU.png" alt="Brinjal Moju" onerror="this.onerror=null;this.src='https://placehold.co/400x200/d4af37/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Brinjal Moju (Wambatu Moju)</h5>
+                            <p>Pickled eggplant stir-fried with spices, a sweet, sour, and spicy accompaniment.</p>
+
+                            <div class="price">Rs. 350</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="potato-curry" data-item-price="300" data-item-image="https://placehold.co/400x200/8b4513/ffffff?text=Potato+Curry" data-item-title="Potato Curry">
+                        <a href="item-details.html?item=potato-curry">
+                            <img src="Image/images (1).jpeg" alt="Potato Curry" onerror="this.onerror=null;this.src='https://placehold.co/400x200/8b4513/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Potato Curry</h5>
+                            <p>Soft potatoes simmered in a mild coconut milk gravy with aromatic spices.</p>
+                            <div class="price">Rs. 300</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="cuttlefish-curry" data-item-price="600" data-item-image="https://placehold.co/400x200/2c3e50/ffffff?text=Cuttlefish+Curry" data-item-title="Cuttlefish Curry">
+                        <a href="item-details.html?item=cuttlefish-curry">
+                            <img src="Image/109.jpg" alt="Cuttlefish Curry" onerror="this.onerror=null;this.src='https://placehold.co/400x200/2c3e50/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Cuttlefish Curry</h5>
+                            <p>Tender cuttlefish cooked in a rich, spicy coconut gravy, a seafood lover's delight.</p>
+                            <div class="price">Rs. 600</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="egg-curry" data-item-price="350" data-item-image="https://placehold.co/400x200/ff6b35/ffffff?text=Egg+Curry" data-item-title="Egg Curry">
+                        <a href="item-details.html?item=egg-curry">
+                            <img src="Image/images (2).jpeg" alt="Egg Curry" onerror="this.onerror=null;this.src='https://placehold.co/400x200/ff6b35/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Egg Curry</h5>
+                            <p>Boiled eggs simmered in a flavorful, spiced coconut milk curry.</p>
+                            <div class="price">Rs. 350</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="cashew-curry" data-item-price="450" data-item-image="https://placehold.co/400x200/d4af37/ffffff?text=Cashew+Curry" data-item-title="Cashew Nut Curry">
+                        <a href="item-details.html?item=cashew-curry">
+                            <img src="Image/Sri-Lankan-Cashew-Curry-5593-Copy-Copy-1-500x375.jpg" alt="Cashew Nut Curry" onerror="this.onerror=null;this.src='https://placehold.co/400x200/d4af37/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Cashew Nut Curry</h5>
+                            <p>Creamy and rich curry made with cashews, a popular vegetarian delicacy.</p>
+                            <div class="price">Rs. 450</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="beetroot-curry" data-item-price="300" data-item-image="https://placehold.co/400x200/8b4513/ffffff?text=Beetroot+Curry" data-item-title="Beetroot Curry">
+                        <a href="item-details.html?item=beetroot-curry">
+                            <img src="Image/images (3).jpeg" alt="Beetroot Curry" onerror="this.onerror=null;this.src='https://placehold.co/400x200/8b4513/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Beetroot Curry</h5>
+                            <p>Sweet and earthy beetroot cooked in a spiced coconut milk gravy.</p>
+                            <div class="price">Rs. 300</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="mallung" data-item-price="280" data-item-image="https://placehold.co/400x200/2c3e50/ffffff?text=Mallung" data-item-title="Mallung">
+                        <a href="item-details.html?item=mallung">
+                            <img src="Image/images (4).jpeg" alt="Mallung" onerror="this.onerror=null;this.src='https://placehold.co/400x200/2c3e50/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Mallung (Gotukola / Mukunuwenna)</h5>
+                            <p>Fresh shredded greens lightly stir-fried with coconut, a healthy and flavorful side dish.</p>
+                            <div class="price">Rs. 280</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Soups & Starters -->
+            <h2 class="menu-category-title">🍜 Soups & Starters</h2>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="hot-butter-cuttlefish" data-item-price="900" data-item-image="https://placehold.co/400x200/ff6b35/ffffff?text=Hot+Butter+Cuttlefish" data-item-title="Hot Butter Cuttlefish">
+                        <a href="item-details.html?item=hot-butter-cuttlefish">
+                            <img src="Image/srilankan-chic-holidays-srilankan-food-hot-butter-cuttlefish-1-1024x1024.jpg" alt="Hot Butter Cuttlefish" onerror="this.onerror=null;this.src='https://placehold.co/400x200/ff6b35/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Hot Butter Cuttlefish</h5>
+                            <p>Crispy fried cuttlefish tossed in a spicy, buttery sauce – a popular appetizer.</p>
+                            <div class="price">Rs. 900</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="vegetable-spring-rolls" data-item-price="400" data-item-image="https://placehold.co/400x200/d4af37/ffffff?text=Spring+Rolls" data-item-title="Vegetable Spring Rolls">
+                        <a href="item-details.html?item=vegetable-spring-rolls">
+                            <img src="Image/fresh-spring-roll-appetizer-with-vegetables-pork-plate-generated-by-ai-scaled.jpg" alt="Vegetable Spring Rolls" onerror="this.onerror=null;this.src='https://placehold.co/400x200/d4af37/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Vegetable Spring Rolls (3 Pcs)</h5>
+                            <p>Crispy spring rolls filled with a medley of fresh vegetables.</p>
+                            <div class="price">Rs. 400</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="fish-rolls" data-item-price="350" data-item-image="https://placehold.co/400x200/8b4513/ffffff?text=Fish+Rolls" data-item-title="Fish Rolls">
+                        <a href="item-details.html?item=fish-rolls">
+                            <img src="Image/rolls9-480x270.jpg" alt="Fish Rolls" onerror="this.onerror=null;this.src='https://placehold.co/400x200/8b4513/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Fish Rolls (Sri Lankan Style)</h5>
+                            <p>Savory fish and potato mixture wrapped in a crispy pastry, a classic short eat.</p>
+                            <div class="price">Rs. 350</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="chicken-soup" data-item-price="450" data-item-image="https://placehold.co/400x200/2c3e50/ffffff?text=Chicken+Soup" data-item-title="Chicken Soup">
+                        <a href="item-details.html?item=chicken-soup">
+                            <img src="Image/images (5).jpeg" alt="Chicken Soup" onerror="this.onerror=null;this.src='https://placehold.co/400x200/2c3e50/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Chicken Soup</h5>
+                            <p>Comforting and flavorful chicken broth with tender chicken pieces and vegetables.</p>
+                            <div class="price">Rs. 450</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="wonton-soup" data-item-price="500" data-item-image="https://placehold.co/400x200/ff6b35/ffffff?text=Wonton+Soup" data-item-title="Wonton Soup">
+                        <a href="item-details.html?item=wonton-soup">
+                            <img src="Image/hq720.jpg" alt="Wonton Soup" onerror="this.onerror=null;this.src='https://placehold.co/400x200/ff6b35/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Wonton Soup</h5>
+                            <p>Delicate wontons in a clear, savory broth, a light and satisfying starter.</p>
+                            <div class="price">Rs. 500</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="tom-yum-soup" data-item-price="550" data-item-image="https://placehold.co/400x200/d4af37/ffffff?text=Tom+Yum+Soup" data-item-title="Tom Yum Soup">
+                        <a href="item-details.html?item=tom-yum-soup">
+                            <img src="Image/images (6).jpeg" alt="Tom Yum Soup" onerror="this.onerror=null;this.src='https://placehold.co/400x200/d4af37/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Tom Yum Soup</h5>
+                            <p>Spicy and sour Thai soup with aromatic herbs, a vibrant and zesty option.</p>
+                            <div class="price">Rs. 550</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Snacks & Short Eats -->
+            <h2 class="menu-category-title">🍢 Snacks & Short Eats</h2>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="fish-patties" data-item-price="300" data-item-image="https://placehold.co/400x200/8b4513/ffffff?text=Fish+Patties" data-item-title="Fish Patties">
+                        <a href="item-details.html?item=fish-patties">
+                            <img src="Image/images (10).jpeg" alt="Fish Patties" onerror="this.onerror=null;this.src='https://placehold.co/400x200/8b4513/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Fish Patties (3 Pcs)</h5>
+                            <p>Crispy fried pastry filled with a delicious spiced fish mixture.</p>
+                            <div class="price">Rs. 300</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="egg-rolls" data-item-price="280" data-item-image="https://placehold.co/400x200/2c3e50/ffffff?text=Egg+Rolls" data-item-title="Egg Rolls">
+                        <a href="item-details.html?item=egg-rolls">
+                            <img src="Image/hq720 (2).jpg" alt="Egg Rolls" onerror="this.onerror=null;this.src='https://placehold.co/400x200/2c3e50/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Egg Rolls (2 Pcs)</h5>
+                            <p>Savory rolls with a spiced egg filling, deep-fried to golden perfection.</p>
+                            <div class="price">Rs. 280</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="cutlets" data-item-price="350" data-item-image="https://placehold.co/400x200/ff6b35/ffffff?text=Cutlets" data-item-title="Cutlets">
+                        <a href="item-details.html?item=cutlets">
+                            <img src="Image/images (11).jpeg" alt="Cutlets" onerror="this.onerror=null;this.src='https://placehold.co/400x200/ff6b35/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Cutlets (Fish / Chicken) (3 Pcs)</h5>
+                            <p>Spiced and breaded cutlets, a popular Sri Lankan snack, available with fish or chicken.</p>
+                            <div class="price">Rs. 350 - 450</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="vadai" data-item-price="200" data-item-image="https://placehold.co/400x200/d4af37/ffffff?text=Vadai" data-item-title="Vadai">
+                        <a href="item-details.html?item=vadai">
+                            <img src="Image/images (12).jpeg" alt="Vadai" onerror="this.onerror=null;this.src='https://placehold.co/400x200/d4af37/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Vadai (Ulundu / Parippu) (2 Pcs)</h5>
+                            <p>Savory lentil fritters, a delightful crunchy snack, perfect with tea.</p>
+                            <div class="price">Rs. 200</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="samosa" data-item-price="250" data-item-image="https://placehold.co/400x200/8b4513/ffffff?text=Samosa" data-item-title="Samosa">
+                        <a href="item-details.html?item=samosa">
+                            <img src="Image/21a.jpg" alt="Samosa" onerror="this.onerror=null;this.src='https://placehold.co/400x200/8b4513/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Samosa (2 Pcs)</h5>
+                            <p>Crispy triangular pastries filled with spiced potatoes and peas.</p>
+                            <div class="price">Rs. 250</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="chinese-rolls" data-item-price="320" data-item-image="https://placehold.co/400x200/2c3e50/ffffff?text=Chinese+Rolls" data-item-title="Chinese Rolls">
+                        <a href="item-details.html?item=chinese-rolls">
+                            <img src="Image/rolls9-480x270.jpg" alt="Chinese Rolls" onerror="this.onerror=null;this.src='https://placehold.co/400x200/2c3e50/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Chinese Rolls (2 Pcs)</h5>
+                            <p>Crispy rolls with a savory filling, a popular snack with a hint of Chinese flavors.</p>
+                            <div class="price">Rs. 320</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Desserts -->
+            <h2 class="menu-category-title">🍰 Desserts</h2>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="wattalappam" data-item-price="400" data-item-image="https://placehold.co/400x200/ff6b35/ffffff?text=Wattalappam" data-item-title="Wattalappam">
+                        <a href="item-details.html?item=wattalappam">
+                            <img src="Image/010.jpg" alt="Wattalappam" onerror="this.onerror=null;this.src='https://placehold.co/400x200/ff6b35/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Wattalappam</h5>
+                            <p>A rich, creamy coconut custard pudding, sweetened with jaggery and spiced.</p>
+                            <div class="price">Rs. 400</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="kiri-pani" data-item-price="350" data-item-image="https://placehold.co/400x200/d4af37/ffffff?text=Kiri+Pani" data-item-title="Kiri Pani">
+                        <a href="item-details.html?item=kiri-pani">
+                            <img src="Image/curd-and-treacle-sri-lanka.png" alt="Kiri Pani" onerror="this.onerror=null;this.src='https://placehold.co/400x200/d4af37/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Kiri Pani (Curd with Treacle)</h5>
+                            <p>Creamy buffalo curd drizzled with golden palm treacle, a classic Sri Lankan dessert.</p>
+                            <div class="price">Rs. 350</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="coconut-treacle-pancake" data-item-price="300" data-item-image="https://placehold.co/400x200/8b4513/ffffff?text=Coconut+Pancake" data-item-title="Coconut Treacle Pancake">
+                        <a href="item-details.html?item=coconut-treacle-pancake">
+                            <img src="Image/hq720 (1).jpg" alt="Coconut Treacle Pancake" onerror="this.onerror=null;this.src='https://placehold.co/400x200/8b4513/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Coconut Treacle Pancake</h5>
+                            <p>Thin pancakes filled with a sweet coconut and treacle mixture, a delightful treat.</p>
+                            <div class="price">Rs. 300</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="sago-pudding" data-item-price="280" data-item-image="https://placehold.co/400x200/2c3e50/ffffff?text=Sago+Pudding" data-item-title="Sago Pudding">
+                        <a href="item-details.html?item=sago-pudding">
+                            <img src="Image/mango-sago-DSC_0128-1x1-1200.jpg" alt="Sago Pudding" onerror="this.onerror=null;this.src='https://placehold.co/400x200/2c3e50/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Sago Pudding</h5>
+                            <p>Light and refreshing pudding made from sago pearls, coconut milk, and a hint of sweetness.</p>
+                            <div class="price">Rs. 280</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="ice-cream" data-item-price="350" data-item-image="https://placehold.co/400x200/ff6b35/ffffff?text=Ice+Cream" data-item-title="Ice Cream">
+                        <a href="item-details.html?item=ice-cream">
+                            <img src="Image/delicious-flavors-sweet-creamy-frozen-desserts-butterscotch-ice-cream-170.jpg" alt="Ice Cream" onerror="this.onerror=null;this.src='https://placehold.co/400x200/ff6b35/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Ice Cream (Vanilla / Chocolate / Fruit)</h5>
+                            <p>Classic ice cream flavors to cool down after a spicy meal.</p>
+                            <div class="price">Rs. 350</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Beverages -->
+            <h2 class="menu-category-title">🥤 Beverages</h2>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="king-coconut" data-item-price="250" data-item-image="https://placehold.co/400x200/d4af37/ffffff?text=King+Coconut" data-item-title="King Coconut">
+                        <a href="item-details.html?item=king-coconut">
+                            <img src="Image/king-coconut-eLanka-01-597x400.png" alt="King Coconut" onerror="this.onerror=null;this.src='https://placehold.co/400x200/d4af37/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>King Coconut</h5>
+                            <p>Naturally refreshing and hydrating, served fresh from the coconut.</p>
+                            <div class="price">Rs. 250</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="ginger-beer" data-item-price="200" data-item-image="https://placehold.co/400x200/8b4513/ffffff?text=Ginger+Beer" data-item-title="Ginger Beer">
+                        <a href="item-details.html?item=ginger-beer">
+                            <img src="Image/Elephant-House-Ginger-Beer-1024x1024.webp" alt="Ginger Beer" onerror="this.onerror=null;this.src='https://placehold.co/400x200/8b4513/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Ginger Beer (Local)</h5>
+                            <p>A classic Sri Lankan spicy ginger beer, a refreshing kick.</p>
+                            <div class="price">Rs. 200</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="woodapple-juice" data-item-price="280" data-item-image="https://placehold.co/400x200/2c3e50/ffffff?text=Woodapple+Juice" data-item-title="Woodapple Juice">
+                        <a href="item-details.html?item=woodapple-juice">
+                            <img src="Image/maxresdefault.jpg" alt="Woodapple Juice" onerror="this.onerror=null;this.src='https://placehold.co/400x200/2c3e50/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Woodapple Juice</h5>
+                            <p>A unique and tangy traditional Sri Lankan fruit juice.</p>
+                            <div class="price">Rs. 280</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="faluda" data-item-price="400" data-item-image="https://placehold.co/400x200/ff6b35/ffffff?text=Faluda" data-item-title="Faluda">
+                        <a href="item-details.html?item=faluda">
+                            <img src="Image/WS.jpg" alt="Faluda" onerror="this.onerror=null;this.src='https://placehold.co/400x200/ff6b35/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Faluda</h5>
+                            <p>A sweet and creamy rose-flavored drink with basil seeds, vermicelli, and ice cream.</p>
+                            <div class="price">Rs. 400</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="iced-coffee" data-item-price="300" data-item-image="https://placehold.co/400x200/d4af37/ffffff?text=Iced+Coffee" data-item-title="Iced Coffee">
+                        <a href="item-details.html?item=iced-coffee">
+                            <img src="Image/WS-(1).jpg" alt="Iced Coffee" onerror="this.onerror=null;this.src='https://placehold.co/400x200/d4af37/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Iced Coffee</h5>
+                            <p>Chilled coffee, perfect for a warm day.</p>
+                            <div class="price">Rs. 300</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="milk-plain-tea" data-item-price="150" data-item-image="https://placehold.co/400x200/8b4513/ffffff?text=Tea" data-item-title="Milk Tea / Plain Tea">
+                        <a href="item-details.html?item=milk-plain-tea">
+                            <img src="Image/images (8).jpeg" alt="Milk Tea / Plain Tea" onerror="this.onerror=null;this.src='https://placehold.co/400x200/8b4513/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Milk Tea / Plain Tea</h5>
+                            <p>Classic Ceylon tea, served with or without milk.</p>
+                            <div class="price">Rs. 150 - 200</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="fresh-lime-juice" data-item-price="220" data-item-image="https://placehold.co/400x200/2c3e50/ffffff?text=Lime+Juice" data-item-title="Fresh Lime Juice">
+                        <a href="item-details.html?item=fresh-lime-juice">
+                            <img src="Image/main-header (1).avif" alt="Fresh Lime Juice" onerror="this.onerror=null;this.src='https://placehold.co/400x200/2c3e50/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Fresh Lime Juice</h5>
+                            <p>Tangy and refreshing, a perfect thirst quencher.</p>
+                            <div class="price">Rs. 220</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="menu-item-card" data-item-id="nelli-juice" data-item-price="250" data-item-image="https://placehold.co/400x200/ff6b35/ffffff?text=Nelli+Juice" data-item-title="Nelli Juice">
+                        <a href="item-details.html?item=nelli-juice">
+                            <img src="Image/images (9).jpeg" alt="Nelli Juice" onerror="this.onerror=null;this.src='https://placehold.co/400x200/ff6b35/ffffff?text=Image+Not+Found';">
+                        </a>
+                        <div class="menu-item-content">
+                            <h5>Nelli Juice</h5>
+                            <p>Traditional Sri Lankan gooseberry juice, known for its unique taste and health benefits.</p>
+                            <div class="price">Rs. 250</div>
+                            <button class="btn btn-add-to-cart-item">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="bi bi-house-heart"></i> Our Village Kitchen</h5>
+                    <p>Authentic Sri Lankan cuisine made with love and tradition.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/share/16aj1LUHf4/?mibextid=wwXIfr"><i class="bi bi-facebook"></i></a>
+                        <a href="https://www.facebook.com/share/16aj1LUHf4/?mibextid=wwXIfr"><i class="bi bi-instagram"></i></a>
+                        <a href="#"><i class="bi bi-whatsapp"></i></a>
+                    </div>
+                    <p class="mt-3">&copy; 2025 Our Village Kitchen. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Data for all menu items on the menu page
+        const menuItemsData = {
+            "rice-and-curry": {
+                title: "Rice and Curry",
+                priceValue: 850, // Default price, actual price depends on option
+                image: "https://placehold.co/400x200/ff6b35/ffffff?text=Rice+and+Curry"
+            },
+            "yellow-rice": {
+                title: "Yellow Rice with Chicken Curry",
+                priceValue: 980,
+                image: "https://placehold.co/400x200/d4af37/ffffff?text=Yellow+Rice"
+            },
+            "fried-rice": {
+                title: "Fried Rice",
+                priceValue: 750, // Default price, actual price depends on option
+                image: "https://placehold.co/400x200/8b4513/ffffff?text=Fried+Rice"
+            },
+            "nasi-goreng": {
+                title: "Nasi Goreng",
+                priceValue: 1100,
+                image: "https://placehold.co/400x200/2c3e50/ffffff?text=Nasi+Goreng"
+            },
+            "kottu-roti": {
+                title: "Kottu Roti",
+                priceValue: 700, // Default price, actual price depends on option
+                image: "https://placehold.co/400x200/ff6b35/ffffff?text=Kottu+Roti"
+            },
+            "string-hoppers": {
+                title: "String Hoppers",
+                priceValue: 650,
+                image: "https://placehold.co/400x200/d4af37/ffffff?text=String+Hoppers"
+            },
+            "pittu": {
+                title: "Pittu",
+                priceValue: 550,
+                image: "https://placehold.co/400x200/8b4513/ffffff?text=Pittu"
+            },
+            "milk-rice": {
+                title: "Milk Rice (Kiribath)",
+                priceValue: 450,
+                image: "https://placehold.co/400x200/2c3e50/ffffff?text=Milk+Rice"
+            },
+            "pol-roti": {
+                title: "Pol Roti",
+                priceValue: 400,
+                image: "https://placehold.co/400x200/ff6b35/ffffff?text=Pol+Roti"
+            },
+            "hoppers": {
+                title: "Hoppers",
+                priceValue: 300, // Default price, actual price depends on option
+                image: "https://placehold.co/400x200/d4af37/ffffff?text=Hoppers"
+            },
+            "devilled-chicken": {
+                title: "Devilled Chicken with Rice",
+                priceValue: 1050,
+                image: "https://placehold.co/400x200/8b4513/ffffff?text=Devilled+Chicken"
+            },
+            "devilled-fish": {
+                title: "Devilled Fish with Fried Rice",
+                priceValue: 1150,
+                image: "https://placehold.co/400x200/2c3e50/ffffff?text=Devilled+Fish"
+            },
+            "chinese-chicken": {
+                title: "Chinese Style Chicken with Fried Rice",
+                priceValue: 1100,
+                image: "https://placehold.co/400x200/ff6b35/ffffff?text=Chinese+Chicken"
+            },
+            "chicken-curry": {
+                title: "Chicken Curry (Sri Lankan Style)",
+                priceValue: 500,
+                image: "https://placehold.co/400x200/d4af37/ffffff?text=Chicken+Curry"
+            },
+            "fish-ambul-thiyal": {
+                title: "Fish Ambul Thiyal",
+                priceValue: 550,
+                image: "https://placehold.co/400x200/8b4513/ffffff?text=Fish+Ambul+Thiyal"
+            },
+            "dhal-curry": {
+                title: "Dhal Curry (Parippu)",
+                priceValue: 300,
+                image: "https://placehold.co/400x200/2c3e50/ffffff?text=Dhal+Curry"
+            },
+            "jackfruit-curry": {
+                title: "Jackfruit Curry (Polos)",
+                priceValue: 400,
+                image: "https://placehold.co/400x200/ff6b35/ffffff?text=Jackfruit+Curry"
+            },
+            "brinjal-moju": {
+                title: "Brinjal Moju (Wambatu Moju)",
+                priceValue: 350,
+                image: "https://placehold.co/400x200/d4af37/ffffff?text=Brinjal+Moju"
+            },
+            "potato-curry": {
+                title: "Potato Curry",
+                priceValue: 300,
+                image: "https://placehold.co/400x200/8b4513/ffffff?text=Potato+Curry"
+            },
+            "cuttlefish-curry": {
+                title: "Cuttlefish Curry",
+                priceValue: 600,
+                image: "https://placehold.co/400x200/2c3e50/ffffff?text=Cuttlefish+Curry"
+            },
+            "egg-curry": {
+                title: "Egg Curry",
+                priceValue: 350,
+                image: "https://placehold.co/400x200/ff6b35/ffffff?text=Egg+Curry"
+            },
+            "cashew-curry": {
+                title: "Cashew Nut Curry",
+                priceValue: 450,
+                image: "https://placehold.co/400x200/d4af37/ffffff?text=Cashew+Curry"
+            },
+            "beetroot-curry": {
+                title: "Beetroot Curry",
+                priceValue: 300,
+                image: "https://placehold.co/400x200/8b4513/ffffff?text=Beetroot+Curry"
+            },
+            "mallung": {
+                title: "Mallung (Gotukola / Mukunuwenna)",
+                priceValue: 280,
+                image: "https://placehold.co/400x200/2c3e50/ffffff?text=Mallung"
+            },
+            "hot-butter-cuttlefish": {
+                title: "Hot Butter Cuttlefish",
+                priceValue: 900,
+                image: "https://placehold.co/400x200/ff6b35/ffffff?text=Hot+Butter+Cuttlefish"
+            },
+            "vegetable-spring-rolls": {
+                title: "Vegetable Spring Rolls",
+                priceValue: 400,
+                image: "https://placehold.co/400x200/d4af37/ffffff?text=Spring+Rolls"
+            },
+            "fish-rolls": {
+                title: "Fish Rolls",
+                priceValue: 350,
+                image: "https://placehold.co/400x200/8b4513/ffffff?text=Fish+Rolls"
+            },
+            "chicken-soup": {
+                title: "Chicken Soup",
+                priceValue: 450,
+                image: "https://placehold.co/400x200/2c3e50/ffffff?text=Chicken+Soup"
+            },
+            "wonton-soup": {
+                title: "Wonton Soup",
+                priceValue: 500,
+                image: "https://placehold.co/400x200/ff6b35/ffffff?text=Wonton+Soup"
+            },
+            "tom-yum-soup": {
+                title: "Tom Yum Soup",
+                priceValue: 550,
+                image: "https://placehold.co/400x200/d4af37/ffffff?text=Tom+Yum+Soup"
+            },
+            "fish-patties": {
+                title: "Fish Patties",
+                priceValue: 300,
+                image: "https://placehold.co/400x200/8b4513/ffffff?text=Fish+Patties"
+            },
+            "egg-rolls": {
+                title: "Egg Rolls",
+                priceValue: 280,
+                image: "https://placehold.co/400x200/2c3e50/ffffff?text=Egg+Rolls"
+            },
+            "cutlets": {
+                title: "Cutlets",
+                priceValue: 350, // Default price, actual price depends on option
+                image: "https://placehold.co/400x200/ff6b35/ffffff?text=Cutlets"
+            },
+            "vadai": {
+                title: "Vadai",
+                priceValue: 200,
+                image: "https://placehold.co/400x200/d4af37/ffffff?text=Vadai"
+            },
+            "samosa": {
+                title: "Samosa",
+                priceValue: 250,
+                image: "https://placehold.co/400x200/8b4513/ffffff?text=Samosa"
+            },
+            "chinese-rolls": {
+                title: "Chinese Rolls",
+                priceValue: 320,
+                image: "https://placehold.co/400x200/2c3e50/ffffff?text=Chinese+Rolls"
+            },
+            "wattalappam": {
+                title: "Wattalappam",
+                priceValue: 400,
+                image: "https://placehold.co/400x200/ff6b35/ffffff?text=Wattalappam"
+            },
+            "kiri-pani": {
+                title: "Kiri Pani",
+                priceValue: 350,
+                image: "https://placehold.co/400x200/d4af37/ffffff?text=Kiri+Pani"
+            },
+            "coconut-treacle-pancake": {
+                title: "Coconut Treacle Pancake",
+                priceValue: 300,
+                image: "https://placehold.co/400x200/8b4513/ffffff?text=Coconut+Pancake"
+            },
+            "sago-pudding": {
+                title: "Sago Pudding",
+                priceValue: 280,
+                image: "https://placehold.co/400x200/2c3e50/ffffff?text=Sago+Pudding"
+            },
+            "ice-cream": {
+                title: "Ice Cream",
+                priceValue: 350,
+                image: "https://placehold.co/400x200/ff6b35/ffffff?text=Ice+Cream"
+            },
+            "king-coconut": {
+                title: "King Coconut",
+                priceValue: 250,
+                image: "https://placehold.co/400x200/d4af37/ffffff?text=King+Coconut"
+            },
+            "ginger-beer": {
+                title: "Ginger Beer",
+                priceValue: 200,
+                image: "https://placehold.co/400x200/8b4513/ffffff?text=Ginger+Beer"
+            },
+            "woodapple-juice": {
+                title: "Woodapple Juice",
+                priceValue: 280,
+                image: "https://placehold.co/400x200/2c3e50/ffffff?text=Woodapple+Juice"
+            },
+            "faluda": {
+                title: "Faluda",
+                priceValue: 400,
+                image: "https://placehold.co/400x200/ff6b35/ffffff?text=Faluda"
+            },
+            "iced-coffee": {
+                title: "Iced Coffee",
+                priceValue: 300,
+                image: "https://placehold.co/400x200/d4af37/ffffff?text=Iced+Coffee"
+            },
+            "milk-plain-tea": {
+                title: "Milk Tea / Plain Tea",
+                priceValue: 150, // Default price, actual price depends on option
+                image: "https://placehold.co/400x200/8b4513/ffffff?text=Tea"
+            },
+            "fresh-lime-juice": {
+                title: "Fresh Lime Juice",
+                priceValue: 220,
+                image: "https://placehold.co/400x200/2c3e50/ffffff?text=Lime+Juice"
+            },
+            "nelli-juice": {
+                title: "Nelli Juice",
+                priceValue: 250,
+                image: "https://placehold.co/400x200/ff6b35/ffffff?text=Nelli+Juice"
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cart elements
+            const cartNavBtn = document.getElementById('cart-nav-btn');
+            const cartBadge = document.getElementById('cart-badge');
+            const cartDropdown = document.getElementById('cart-dropdown');
+            const cartDropdownContent = document.getElementById('cart-dropdown-content');
+            const cartDropdownTotalSection = document.getElementById('cart-dropdown-total-section');
+            const cartDropdownTotalAmount = document.getElementById('cart-dropdown-total-amount');
+            const cartDropdownClearBtn = document.getElementById('cart-dropdown-clear');
+            const cartDropdownCheckoutBtn = document.getElementById('cart-dropdown-checkout');
+            const messageBox = document.getElementById('message-box');
+
+            let cart = JSON.parse(localStorage.getItem('restaurantCart')) || []; // Load cart from local storage
+
+            // Function to display messages
+            function showMessage(message, isError = false) {
+                messageBox.textContent = message;
+                messageBox.classList.remove('d-none', 'error');
+                messageBox.classList.add('show'); // Show the message box
+                if (isError) {
+                    messageBox.classList.add('error');
+                }
+                setTimeout(() => {
+                    messageBox.classList.remove('show'); // Hide after 3 seconds
+                    messageBox.classList.add('d-none');
+                }, 3000); 
+            }
+
+            // Function to update cart display in the dropdown and badge
+            function updateCartDisplay() {
+                let totalItems = 0;
+                let totalPrice = 0;
+                cartDropdownContent.innerHTML = ''; // Clear existing items
+
+                if (cart.length === 0) {
+                    cartDropdownContent.innerHTML = `
+                        <div class="cart-dropdown-empty">
+                            <i class="bi bi-cart-x"></i>
+                            <p>Your cart is empty</p>
+                        </div>
+                    `;
+                    cartDropdownTotalSection.classList.add('d-none');
+                } else {
+                    cart.forEach((item, index) => {
+                        totalItems += item.quantity;
+                        totalPrice += item.priceValue * item.quantity;
+
+                        const cartItemDiv = document.createElement('div');
+                        cartItemDiv.classList.add('cart-dropdown-item');
+                        cartItemDiv.innerHTML = `
+                            <img src="${item.image || 'https://placehold.co/50x50/cccccc/333333?text=Item'}" alt="${item.title}">
+                            <div class="cart-dropdown-details">
+                                <div class="cart-dropdown-name">${item.title}</div>
+                                <div class="cart-dropdown-price">Rs. ${item.priceValue.toLocaleString()} x ${item.quantity}</div>
+                            </div>
+                            <i class="bi bi-x-circle cart-dropdown-remove" data-index="${index}"></i>
+                        `;
+                        cartDropdownContent.appendChild(cartItemDiv);
+                    });
+                    cartDropdownTotalSection.classList.remove('d-none');
+                }
+
+                cartBadge.textContent = totalItems;
+                cartDropdownTotalAmount.textContent = `Rs. ${totalPrice.toLocaleString()}`;
+
+                // Add event listeners for remove buttons
+                document.querySelectorAll('.cart-dropdown-remove').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const index = parseInt(this.dataset.index);
+                        removeFromCart(index);
+                    });
+                });
+            }
+
+            // Function to add item to cart
+            function addToCart(item) {
+                if (!item || !item.priceValue) {
+                    showMessage("Cannot add item to cart. Price information missing.", true);
+                    return;
+                }
+
+                // Check if item already exists in cart (simple check by title for now)
+                const existingItemIndex = cart.findIndex(cartItem => cartItem.title === item.title);
+
+                if (existingItemIndex > -1) {
+                    cart[existingItemIndex].quantity += 1; // Add 1 by default from homepage
+                } else {
+                    cart.push({ ...item, quantity: 1 }); // Add with quantity 1
+                }
+                localStorage.setItem('restaurantCart', JSON.stringify(cart)); // Save updated cart
+                updateCartDisplay();
+                showMessage(`"${item.title}" added to cart!`);
+            }
+
+            // Function to remove item from cart
+            function removeFromCart(index) {
+                cart.splice(index, 1);
+                localStorage.setItem('restaurantCart', JSON.stringify(cart)); // Save updated cart
+                updateCartDisplay();
+                showMessage("Item removed from cart.");
+            }
+
+            // Function to clear cart
+            function clearCart() {
+                cart = [];
+                localStorage.setItem('restaurantCart', JSON.stringify(cart)); // Save empty cart
+                updateCartDisplay();
+                showMessage("Cart cleared.");
+            }
+
+            // --- Event Listeners ---
+
+            // Navbar background change on scroll
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('shadow-lg');
+                } else {
+                    navbar.classList.remove('shadow-lg');
+                }
+            });
+
+            // Cart dropdown toggle
+            cartNavBtn.addEventListener('click', function(event) {
+                cartDropdown.classList.toggle('d-none');
+                event.stopPropagation(); // Prevent click from closing immediately
+            });
+
+            // Close cart dropdown if clicked outside
+            document.addEventListener('click', function(event) {
+                if (!cartDropdown.contains(event.target) && !cartNavBtn.contains(event.target)) {
+                    cartDropdown.classList.add('d-none');
+                }
+            });
+
+            // Clear cart button in dropdown
+            cartDropdownClearBtn.addEventListener('click', clearCart);
+
+            // Checkout button in dropdown
+            cartDropdownCheckoutBtn.addEventListener('click', function() {
+                if (cart.length > 0) {
+                    showMessage("Proceeding to checkout with your cart items!", false);
+                    // In a real application, this would navigate to a checkout page
+                    // For now, just clear the cart as a demo
+                    clearCart();
+                    cartDropdown.classList.add('d-none');
+                } else {
+                    showMessage("Your cart is empty. Please add items before checking out.", true);
+                }
+            });
+
+            // Add to Cart buttons on menu items
+            document.querySelectorAll('.btn-add-to-cart-item').forEach(button => {
+                button.addEventListener('click', function() {
+                    const menuItemCard = this.closest('.menu-item-card');
+                    const itemId = menuItemCard.dataset.itemId;
+                    const itemTitle = menuItemCard.dataset.itemTitle;
+                    const itemPrice = parseInt(menuItemCard.dataset.itemPrice);
+                    const itemImage = menuItemCard.dataset.itemImage;
+
+                    const item = {
+                        id: itemId,
+                        title: itemTitle,
+                        priceValue: itemPrice,
+                        image: itemImage
+                    };
+                    
+                    if (item) {
+                        addToCart(item);
+                    } else {
+                        showMessage("Error: Could not find item details.", true);
+                    }
+                });
+            });
+
+            // Initial cart display update on page load
+            updateCartDisplay();
+        });
+    </script>
+</body>
+</html>
